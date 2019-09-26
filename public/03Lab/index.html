@@ -11,7 +11,7 @@
 <body class="text-center">
     <h1 class="jumbotron"> US Geography Quiz </h1>
     <h3><span id="markImg1"></span> What is the capital of California?</h3>
-    <input type="text" id="q1">
+    <input type="type" id="q1">
     <br><br>
     <div id="q1Feedback"></div>
     <br>
@@ -59,7 +59,8 @@
     <h3><span id="markImg7"></span>Question 7</h3>
     <div id="q7Feedback"></div>
 
-    <h3><span id="markImg8"></span>Question 8</h3>
+    <h3><span id="markImg8"></span>Objectively, What is the Most Problematic State in the US?</h3>
+    <div id="q8Choices"></div>
     <div id="q8Feedback"></div>
 
     <h3 id="validationFdbk" class="bg-danger text-white"></h3>
@@ -94,6 +95,7 @@
         });
 
         displayQ4Choices();
+        displayQ8Choices();
 
         function displayQ4Choices() {
             let q4ChoicesArray = ["Maine", "Rhode Island", "Maryland", "Delaware"];
@@ -103,6 +105,17 @@
                 $("#q4Choices").append(` <input type="radio" name="q4" id="${q4ChoicesArray[i]}"
                     value="${q4ChoicesArray[i]}"> <label for=${q4ChoicesArray[i]}"> ${
                         q4ChoicesArray[i]}</label>`);
+            }
+        }
+
+        function displayQ8Choices() {
+            let q8ChoicesArray = ["Texas", "South Carolina", "Missouri", "Arkansas"];
+            q8ChoicesArray = _.shuffle(q8ChoicesArray);
+
+            for (let i = 0; i < q8ChoicesArray.length; i++) {
+                $("#q8Choices").append(` <input type="radio" name="q8" id="${q8ChoicesArray[i]}"
+                    value="${q8ChoicesArray[i]}"> <label for=${q8ChoicesArray[i]}"> ${
+                        q8ChoicesArray[i]}</label>`);
             }
         }
 
@@ -122,11 +135,18 @@
             $(`#markImg${index}`).html("<img src ='img/checkmark.png'>");
             score += 20;
         }
+        
+        function rightAnswer678(index) {
+            $(`#q${index}Feedback`).html("Correct!");
+            $(`#q${index}Feedback`).attr("class", "bg-success text-white");
+            $(`#markImg${index}`).html("<img src ='img/checkmark.png'>");
+            score += 12.50;
+        }
 
         function wrongAnswer(index) {
             $(`#q${index}Feedback`).html("Incorrect!");
             $(`#q${index}Feedback`).attr("class", "bg-warning text-white");
-            $(`#markImg${index}`).html("<img src ='img/xmark.png'>");
+            $(`#markImg${index}`).html("<img src ='img/xmark.png' alt='xmark'>");
 
         }
 
@@ -142,11 +162,13 @@
             let q1Response = $("#q1").val().toLowerCase();
             let q2Response = $("#q2").val();
             let q4Response = $("input[name=q4]:checked").val();
-            
+            let q8Response = $("input[name=q8]:checked").val();
 
             //Question 1
             if (q1Response == "sacramento") {
+                console.log("grading question 1");
                 rightAnswer(1);
+
             }
             else {
                 wrongAnswer(1);
@@ -178,9 +200,10 @@
             }
 
             //Question 5
-            if(q5Response == "seal2") {
+            if (q5Response == "seal2") {
                 rightAnswer(5);
-            } else {
+            }
+            else {
                 wrongAnswer(5);
             }
             // if ($("#seal2").css("background-color") == "rgb(255,255,0)") {
@@ -189,6 +212,17 @@
             // else {
             //     wrongAnswer(5);
             // }
+
+            //Question 6
+
+            //Question 7
+            //Question 8
+            if (q8Response == "Arkansas") {
+                rightAnswer678(8);
+            }
+            else {
+                wrongAnswer(8);
+            }
 
 
             $("#totalScore").html("Total Score: " + score);
