@@ -11,9 +11,9 @@
 <body class="text-center">
     <h1 class="jumbotron"> US Geography Quiz </h1>
     <h3><span id="markImg1"></span> What is the capital of California?</h3>
-    <input type="type" id="q1">
+    <input type="text" id="q1">
     <br><br>
-    <div id="q1FeedBack"></div>
+    <div id="q1Feedback"></div>
     <br>
 
     <h3><span id="markImg2"></span>What is the longest river?</h3>
@@ -126,7 +126,7 @@
         function wrongAnswer(index) {
             $(`#q${index}Feedback`).html("Incorrect!");
             $(`#q${index}Feedback`).attr("class", "bg-warning text-white");
-            $(`#markImg${index}`).html("<img src ='img/xmark.png' alt='xmark>");
+            $(`#markImg${index}`).html("<img src ='img/xmark.png'>");
 
         }
 
@@ -153,7 +153,7 @@
             }
 
             //Question 2
-            if (q2Response == "mo") {
+            if (q2Response == "ms") {
                 rightAnswer(2);
             }
             else {
