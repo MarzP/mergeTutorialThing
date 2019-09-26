@@ -27,7 +27,7 @@
     <br><br>
     <div id="q2Feedback"></div>
     <br>
-    
+
     <h3><span id="markImg3"></span> What presidents are carved into mount Rushmore?</h3>
     <input type="checkbox" id="Jackson"> <label for="Jackson">A. Jackson</label>
     <input type="checkbox" id="Franklin"> <label for="Franklin">B. Franklin</label>
@@ -36,7 +36,7 @@
     <br><br>
     <div id="q3Feedback"></div>
     <br>
-    
+
     <h3><span id="markImg4"></span>What is the smallest US State?</h3>
     <div id="q4Choices"></div>
     <!--<input type="radio" name="q4" id="me" value="Maine"> <label for="me">Maine</label>-->
@@ -45,13 +45,22 @@
     <!--<input type="radio" name="q4" id="de" value="Delaware"> <label for="de">Delaware</label>-->
     <div id="q4Feedback"></div>
     <br><br>
-    
+
     <h3><span id="markImg5"></span>What image is the Great Seal of the State of California?</h3>
     <img src="img/seal1.png" alt="Seal 1" class="q5Choice" id="seal1">
     <img src="img/seal2.png" alt="Seal 2" class="q5Choice" id="seal2">
     <img src="img/seal3.png" alt="Seal 3" class="q5Choice" id="seal3">
-    <div id = "q5Feedback"></div>
+    <div id="q5Feedback"></div>
     <br><br>
+
+    <h3><span id="markImg6"></span>Question 6</h3>
+    <div id="q6Feedback"></div>
+
+    <h3><span id="markImg7"></span>Question 7</h3>
+    <div id="q7Feedback"></div>
+
+    <h3><span id="markImg8"></span>Question 8</h3>
+    <div id="q8Feedback"></div>
 
     <h3 id="validationFdbk" class="bg-danger text-white"></h3>
     <button class="btn btn-outline-success"> Submit Quiz </button>
@@ -62,7 +71,7 @@
 <!--bootstrap-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" ></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
@@ -70,29 +79,33 @@
         //Global variables
         var score = 0;
 
+        let q5Response = "";
+
         //event listeners
         //submit quiz button
         $("button").on("click", gradeQuiz);
-        
+
         //Question 5 images
         $(".q5Choice").on("click", function() {
-            $(".q5Choice").css("background","");
-            $(this).css("background","rgb(255,255,0)");
+            $(".q5Choice").css("background", "");
+            $(this).css("background", "rgb(255,255,0)");
+            q5Response = $(this).attr("id");
+            console.log(q5Response);
         });
 
         displayQ4Choices();
-        
+
         function displayQ4Choices() {
             let q4ChoicesArray = ["Maine", "Rhode Island", "Maryland", "Delaware"];
-            q4ChoicesArray =_.shuffle(q4ChoicesArray);
-            
+            q4ChoicesArray = _.shuffle(q4ChoicesArray);
+
             for (let i = 0; i < q4ChoicesArray.length; i++) {
                 $("#q4Choices").append(` <input type="radio" name="q4" id="${q4ChoicesArray[i]}"
                     value="${q4ChoicesArray[i]}"> <label for=${q4ChoicesArray[i]}"> ${
                         q4ChoicesArray[i]}</label>`);
             }
         }
-        
+
         //functions
         function isFormValid() {
             let isValid = true;
@@ -129,6 +142,7 @@
             let q1Response = $("#q1").val().toLowerCase();
             let q2Response = $("#q2").val();
             let q4Response = $("input[name=q4]:checked").val();
+            
 
             //Question 1
             if (q1Response == "sacramento") {
@@ -145,30 +159,38 @@
             else {
                 wrongAnswer(2);
             }
-            
+
             //Question3
-            if($("#Jefferson").is(":checked") && $("#Roosevelt").is(":checked") 
-                && !$("#Jackson").is(":checked") && !$("#Franklin").is(":checked")) {
+            if ($("#Jefferson").is(":checked") && $("#Roosevelt").is(":checked") &&
+                !$("#Jackson").is(":checked") && !$("#Franklin").is(":checked")) {
                 rightAnswer(3);
-            } else {
+            }
+            else {
                 wrongAnswer(3);
             }
-            
+
             //Question 4
-            if(q4Response == "Rhode Island") {
+            if (q4Response == "Rhode Island") {
                 rightAnswer(4);
-            } else {
+            }
+            else {
                 wrongAnswer(4);
             }
-            
+
             //Question 5
-            if($("#seal2").css("background-color") == "rgb(255,255,0)") {
+            if(q5Response == "seal2") {
                 rightAnswer(5);
             } else {
                 wrongAnswer(5);
             }
-            
-            
+            // if ($("#seal2").css("background-color") == "rgb(255,255,0)") {
+            //     rightAnswer(5);
+            // }
+            // else {
+            //     wrongAnswer(5);
+            // }
+
+
             $("#totalScore").html("Total Score: " + score);
             console.log(score);
         }
