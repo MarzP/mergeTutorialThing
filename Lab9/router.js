@@ -17,7 +17,7 @@ app.get("/", async function(req, res, next){
     //let authors = await getAuthors();
     console.log(categories);
     
-    res.render("../public/Labs/Lab9/index", {"categories":categories, 
+    res.render("../Lab9/index", {"categories":categories, 
                                 //"authors":authors
         
     });
@@ -28,7 +28,7 @@ app.get("/quotes", async function(req, res, next){
     
     let rows = await getQuotes(req.query);
     
-    res.render("../public/Labs/Lab9/quotes", {"records":rows});
+    res.render("../Lab9/quotes", {"records":rows});
     
 });//quotes
 
