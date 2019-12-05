@@ -146,10 +146,10 @@ app.listen(process.env.PORT, process.env.IP, function(){
 function dbConnection(){
     
     let conn = mysql.createConnection({
-        host: "w29ifufy55ljjmzq.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-        user: "icrhy3geicbf2phb",
-        password: "c0r6l9d6cz99aoml",
-        database: "xemupjrbgve6imdc"
+        host: "ui0tj7jn8pyv9lp6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+        user: "fs90tep3rdjaccwa",
+        password: "gh4z26oobo6ypeyz",
+        database: "gxlp4xlzlf1qen36"
     });//createConnection
     
     return conn;
